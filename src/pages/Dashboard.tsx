@@ -1,12 +1,13 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { Layout } from '../components/layout/Layout';
 import { SubscriptionStatus } from '../components/SubscriptionStatus';
 import { Button } from '../components/ui/Button';
-import { LogOut, Settings, CreditCard } from 'lucide-react';
+import { CreditCard, Settings, BarChart3, Users } from 'lucide-react';
 
 export function Dashboard() {
-  const { user, loading, signOut } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -21,58 +22,109 @@ export function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-sm text-gray-600">Welcome back, {user.email}</p>
-            </div>
-            <Button onClick={signOut} variant="outline" size="sm">
-              <LogOut className="h-4 w-4 mr-2" />
-              Sign Out
-            </Button>
-          </div>
+    <Layout>
+      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-2">Welcome back, {user.email}</p>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <div className="bg-white overflow-hidden shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
-                    Subscription Status
-                  </h3>
-                  <SubscriptionStatus />
-                </div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Subscription Status */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Subscription Status
+              </h2>
+              <SubscriptionStatus />
             </div>
 
-            <div className="space-y-6">
-              <div className="bg-white overflow-hidden shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
-                    Quick Actions
-                  </h3>
-                  <div className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start">
-                      <CreditCard className="h-4 w-4 mr-2" />
-                      View Pricing
-                    </Button>
-                    <Button variant="outline" className="w-full justify-start">
-                      <Settings className="h-4 w-4 mr-2" />
-                      Account Settings
-                    </Button>
+            {/* Study Stats */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Study Statistics
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <BarChart3 className="h-8 w-8 text-blue-600" />
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-blue-600">Total Hours</p>
+                      <p className="text-2xl font-bold text-blue-900">24.5</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <Users className="h-8 w-8 text-green-600" />
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-green-600">Study Sessions</p>
+                      <p className="text-2xl font-bold text-green-900">12</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <div className="flex items-center">
+                    <Settings className="h-8 w-8 text-purple-600" />
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-purple-600">Goals Met</p>
+                      <p className="text-2xl font-bold text-purple-900">8/10</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Quick Actions */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Quick Actions
+              </h3>
+              <div className="space-y-3">
+                <Link to="/pricing">
+                  <Button variant="outline" className="w-full justify-start">
+                    <CreditCard className="h-4 w-4 mr-2" />
+                    View Pricing
+                  </Button>
+                </Link>
+                <Button variant="outline" className="w-full justify-start">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Account Settings
+                </Button>
+                <Button variant="outline" className="w-full justify-start">
+                  <BarChart3 className="h-4 w-4 mr-2" />
+                  View Analytics
+                </Button>
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Recent Activity
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center text-sm">
+                  <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                  <span className="text-gray-600">Completed 2-hour study session</span>
+                </div>
+                <div className="flex items-center text-sm">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
+                  <span className="text-gray-600">Updated study plan</span>
+                </div>
+                <div className="flex items-center text-sm">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full mr-3"></div>
+                  <span className="text-gray-600">Joined Discord study group</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

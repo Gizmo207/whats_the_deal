@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSubscription } from '../hooks/useSubscription';
-import { products } from '../stripe-config';
+import { products } from '../config/stripe';
 import { CheckCircle, Clock, XCircle } from 'lucide-react';
 
 export function SubscriptionStatus() {
@@ -8,7 +8,7 @@ export function SubscriptionStatus() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow p-4">
+      <div className="bg-white rounded-lg shadow p-6">
         <div className="animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
           <div className="h-3 bg-gray-200 rounded w-1/2"></div>
@@ -19,12 +19,12 @@ export function SubscriptionStatus() {
 
   if (!subscription || !subscription.subscription_id) {
     return (
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
         <div className="flex items-center">
-          <Clock className="h-5 w-5 text-yellow-400 mr-2" />
+          <Clock className="h-5 w-5 text-yellow-400 mr-3" />
           <div>
             <h3 className="text-sm font-medium text-yellow-800">No Active Subscription</h3>
-            <p className="text-sm text-yellow-700">You don't have an active subscription yet.</p>
+            <p className="text-sm text-yellow-700 mt-1">You don't have an active subscription yet.</p>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ export function SubscriptionStatus() {
   };
 
   return (
-    <div className={`border rounded-lg p-4 ${getStatusColor()}`}>
+    <div className={`border rounded-lg p-6 ${getStatusColor()}`}>
       <div className="flex items-start">
         {getStatusIcon()}
         <div className="ml-3 flex-1">
@@ -65,7 +65,7 @@ export function SubscriptionStatus() {
             </p>
           )}
           {subscription.current_period_end && (
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 mt-2">
               {isCanceled ? 'Ends' : 'Renews'} on{' '}
               {new Date(subscription.current_period_end * 1000).toLocaleDateString()}
             </p>
