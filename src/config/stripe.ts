@@ -1,19 +1,20 @@
-import { StripeProduct } from '../types';
+import { Product } from '../types';
 
-export const STRIPE_PRODUCTS: StripeProduct[] = [
+export const products: Product[] = [
   {
-    priceId: 'price_studycast_monthly', // Replace with your actual Stripe price ID
+    id: 'studycast',
+    priceId: 'price_1234567890', // This will be replaced with your actual Stripe price ID
     name: 'StudyCast',
     description: 'Recording and study plan app',
-    price: 30.00,
-    mode: 'subscription'
+    mode: 'subscription',
+    price: 30.00
   }
 ];
 
 export const STRIPE_CONFIG = {
-  publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '',
+  publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
   successUrl: `${window.location.origin}/success`,
-  cancelUrl: `${window.location.origin}/pricing`
-};
+  cancelUrl: `${window.location.origin}/pricing`,
+} as const;
 
-export { STRIPE_PRODUCTS }
+export { products }
