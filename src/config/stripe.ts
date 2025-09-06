@@ -16,5 +16,3 @@ export const STRIPE_CONFIG = {
   successUrl: `${window.location.origin}/success`,
   cancelUrl: `${window.location.origin}/pricing`,
 } as const;
-
-export { products }
